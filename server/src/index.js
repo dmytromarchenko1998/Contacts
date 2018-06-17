@@ -5,15 +5,6 @@ const resolvers = {
   Query: {
     contacts: (_, args, context, info) => {
       return context.prisma.query.contacts(
-        {
-          where: {
-            firstName: args.firstName,
-            lastName: args.lastName,
-            middleName: args.middleName,
-            number: args.number,
-            email: args.email,
-          },
-        },
         info,
       )
     },
@@ -43,7 +34,17 @@ const resolvers = {
         info,
       )
     },
-  }
+    removeContact: (_, args, context, info) => {
+      return context.prisma.mutation.deleteContact(
+        {
+          where: {
+            id: args.id,
+          },
+        },
+        info,
+      )
+    }
+  },
 }
 
 const server = new GraphQLServer({

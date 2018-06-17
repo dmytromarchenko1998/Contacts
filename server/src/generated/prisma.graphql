@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sat Jun 16 2018 16:03:40 GMT-0700 (PDT)
+# timestamp: Sat Jun 16 2018 18:39:16 GMT-0700 (PDT)
 
 type AggregateContact {
   count: Int!
@@ -16,7 +16,7 @@ type Contact implements Node {
   email: String!
   firstName: String!
   middleName: String
-  LastName: String!
+  lastName: String!
 }
 
 """A connection to a list of items."""
@@ -34,7 +34,7 @@ input ContactCreateInput {
   email: String!
   firstName: String!
   middleName: String
-  LastName: String!
+  lastName: String!
 }
 
 """An edge in a connection."""
@@ -57,8 +57,8 @@ enum ContactOrderByInput {
   firstName_DESC
   middleName_ASC
   middleName_DESC
-  LastName_ASC
-  LastName_DESC
+  lastName_ASC
+  lastName_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -71,7 +71,7 @@ type ContactPreviousValues {
   email: String!
   firstName: String!
   middleName: String
-  LastName: String!
+  lastName: String!
 }
 
 type ContactSubscriptionPayload {
@@ -118,7 +118,7 @@ input ContactUpdateInput {
   email: String
   firstName: String
   middleName: String
-  LastName: String
+  lastName: String
 }
 
 input ContactWhereInput {
@@ -330,46 +330,46 @@ input ContactWhereInput {
 
   """All values not ending with the given string."""
   middleName_not_ends_with: String
-  LastName: String
+  lastName: String
 
   """All values that are not equal to given value."""
-  LastName_not: String
+  lastName_not: String
 
   """All values that are contained in given list."""
-  LastName_in: [String!]
+  lastName_in: [String!]
 
   """All values that are not contained in given list."""
-  LastName_not_in: [String!]
+  lastName_not_in: [String!]
 
   """All values less than the given value."""
-  LastName_lt: String
+  lastName_lt: String
 
   """All values less than or equal the given value."""
-  LastName_lte: String
+  lastName_lte: String
 
   """All values greater than the given value."""
-  LastName_gt: String
+  lastName_gt: String
 
   """All values greater than or equal the given value."""
-  LastName_gte: String
+  lastName_gte: String
 
   """All values containing the given string."""
-  LastName_contains: String
+  lastName_contains: String
 
   """All values not containing the given string."""
-  LastName_not_contains: String
+  lastName_not_contains: String
 
   """All values starting with the given string."""
-  LastName_starts_with: String
+  lastName_starts_with: String
 
   """All values not starting with the given string."""
-  LastName_not_starts_with: String
+  lastName_not_starts_with: String
 
   """All values ending with the given string."""
-  LastName_ends_with: String
+  lastName_ends_with: String
 
   """All values not ending with the given string."""
-  LastName_not_ends_with: String
+  lastName_not_ends_with: String
 }
 
 input ContactWhereUniqueInput {

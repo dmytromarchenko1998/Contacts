@@ -4,5 +4,5 @@ type Contact {
   email: String! @unique
   firstName: String!
   middleName: String
-  LastName: String!
+  lastName: String!
 }
