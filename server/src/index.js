@@ -61,6 +61,13 @@ const server = new GraphQLServer({
     }),
   }),
 })
+
+const options = {
+  port: 8000,
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground',
+}
 // console.log(path.join(__dirname, '../../public'));
 server.express.use('/build', express.static(path.join(__dirname, '../../public')));
-server.start(() => console.log(`GraphQL server is running on http://localhost:4000`))
+server.start(options, () => console.log(`GraphQL server is running on http://localhost:4000`))
