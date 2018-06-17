@@ -7,6 +7,7 @@ const resolvers = {
   Query: {
     contacts: (_, args, context, info) => {
       return context.prisma.query.contacts(
+        {},
         info,
       )
     },
