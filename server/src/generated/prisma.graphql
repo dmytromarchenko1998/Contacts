@@ -1,0 +1,437 @@
+# source: http://localhost:4466
+# timestamp: Sat Jun 16 2018 16:03:40 GMT-0700 (PDT)
+
+type AggregateContact {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Contact implements Node {
+  id: ID!
+  number: String!
+  email: String!
+  firstName: String!
+  middleName: String
+  LastName: String!
+}
+
+"""A connection to a list of items."""
+type ContactConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ContactEdge]!
+  aggregate: AggregateContact!
+}
+
+input ContactCreateInput {
+  number: String!
+  email: String!
+  firstName: String!
+  middleName: String
+  LastName: String!
+}
+
+"""An edge in a connection."""
+type ContactEdge {
+  """The item at the end of the edge."""
+  node: Contact!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ContactOrderByInput {
+  id_ASC
+  id_DESC
+  number_ASC
+  number_DESC
+  email_ASC
+  email_DESC
+  firstName_ASC
+  firstName_DESC
+  middleName_ASC
+  middleName_DESC
+  LastName_ASC
+  LastName_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ContactPreviousValues {
+  id: ID!
+  number: String!
+  email: String!
+  firstName: String!
+  middleName: String
+  LastName: String!
+}
+
+type ContactSubscriptionPayload {
+  mutation: MutationType!
+  node: Contact
+  updatedFields: [String!]
+  previousValues: ContactPreviousValues
+}
+
+input ContactSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ContactWhereInput
+}
+
+input ContactUpdateInput {
+  number: String
+  email: String
+  firstName: String
+  middleName: String
+  LastName: String
+}
+
+input ContactWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  number: String
+
+  """All values that are not equal to given value."""
+  number_not: String
+
+  """All values that are contained in given list."""
+  number_in: [String!]
+
+  """All values that are not contained in given list."""
+  number_not_in: [String!]
+
+  """All values less than the given value."""
+  number_lt: String
+
+  """All values less than or equal the given value."""
+  number_lte: String
+
+  """All values greater than the given value."""
+  number_gt: String
+
+  """All values greater than or equal the given value."""
+  number_gte: String
+
+  """All values containing the given string."""
+  number_contains: String
+
+  """All values not containing the given string."""
+  number_not_contains: String
+
+  """All values starting with the given string."""
+  number_starts_with: String
+
+  """All values not starting with the given string."""
+  number_not_starts_with: String
+
+  """All values ending with the given string."""
+  number_ends_with: String
+
+  """All values not ending with the given string."""
+  number_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  middleName: String
+
+  """All values that are not equal to given value."""
+  middleName_not: String
+
+  """All values that are contained in given list."""
+  middleName_in: [String!]
+
+  """All values that are not contained in given list."""
+  middleName_not_in: [String!]
+
+  """All values less than the given value."""
+  middleName_lt: String
+
+  """All values less than or equal the given value."""
+  middleName_lte: String
+
+  """All values greater than the given value."""
+  middleName_gt: String
+
+  """All values greater than or equal the given value."""
+  middleName_gte: String
+
+  """All values containing the given string."""
+  middleName_contains: String
+
+  """All values not containing the given string."""
+  middleName_not_contains: String
+
+  """All values starting with the given string."""
+  middleName_starts_with: String
+
+  """All values not starting with the given string."""
+  middleName_not_starts_with: String
+
+  """All values ending with the given string."""
+  middleName_ends_with: String
+
+  """All values not ending with the given string."""
+  middleName_not_ends_with: String
+  LastName: String
+
+  """All values that are not equal to given value."""
+  LastName_not: String
+
+  """All values that are contained in given list."""
+  LastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  LastName_not_in: [String!]
+
+  """All values less than the given value."""
+  LastName_lt: String
+
+  """All values less than or equal the given value."""
+  LastName_lte: String
+
+  """All values greater than the given value."""
+  LastName_gt: String
+
+  """All values greater than or equal the given value."""
+  LastName_gte: String
+
+  """All values containing the given string."""
+  LastName_contains: String
+
+  """All values not containing the given string."""
+  LastName_not_contains: String
+
+  """All values starting with the given string."""
+  LastName_starts_with: String
+
+  """All values not starting with the given string."""
+  LastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  LastName_ends_with: String
+
+  """All values not ending with the given string."""
+  LastName_not_ends_with: String
+}
+
+input ContactWhereUniqueInput {
+  id: ID
+  number: String
+  email: String
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createContact(data: ContactCreateInput!): Contact!
+  updateContact(data: ContactUpdateInput!, where: ContactWhereUniqueInput!): Contact
+  deleteContact(where: ContactWhereUniqueInput!): Contact
+  upsertContact(where: ContactWhereUniqueInput!, create: ContactCreateInput!, update: ContactUpdateInput!): Contact!
+  updateManyContacts(data: ContactUpdateInput!, where: ContactWhereInput): BatchPayload!
+  deleteManyContacts(where: ContactWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  contacts(where: ContactWhereInput, orderBy: ContactOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Contact]!
+  contact(where: ContactWhereUniqueInput!): Contact
+  contactsConnection(where: ContactWhereInput, orderBy: ContactOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  contact(where: ContactSubscriptionWhereInput): ContactSubscriptionPayload
+}

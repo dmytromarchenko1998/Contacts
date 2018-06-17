@@ -1,0 +1,10 @@
+# import Contact from './generated/prisma.graphql'
+
+type Query {
+  contacts(firstName: String, lastName: String, middleName: String, number: String, email: String): [Contact]
+  contact(id: ID!): Contact
+}
+
+type Mutation {
+  newContact(firstName: String!, lastName: String!, middleName: String, number: String!, email: String!): Contact
+}
