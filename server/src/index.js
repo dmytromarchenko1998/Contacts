@@ -1,5 +1,7 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
+const { GraphQLServer } = require('graphql-yoga');
+const { Prisma } = require('prisma-binding');
+const express = require('express');
+const path = require('path');
 
 const resolvers = {
   Query: {
@@ -48,14 +50,16 @@ const resolvers = {
 }
 
 const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+  typeDefs: path.join(__dirname, '/schema.graphql'),
   resolvers,
   context: req => ({
     ...req,
     prisma: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
+      typeDefs: path.join(__dirname, '/generated/prisma.graphql'),
       endpoint: 'http://localhost:4466',
     }),
   }),
 })
+// console.log(path.join(__dirname, '../../public'));
+server.express.use('/build', express.static(path.join(__dirname, '../../public')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`))
