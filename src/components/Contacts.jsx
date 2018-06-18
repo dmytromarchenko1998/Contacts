@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import getAllContacts from '../graphql/getAllContacts.jsx';
+import DeleteContact from './DeleteContact.jsx';
 
 const Contacts = () => (
   <Query query={getAllContacts} >
@@ -10,6 +11,7 @@ const Contacts = () => (
       return (
         data.contacts.map(({ firstName, middleName,lastName, number, email, id}) => (
           <div className="contact" id={id}>
+            <DeleteContact id={id} />
             <p>{`${firstName} ${middleName || ''} ${lastName}`}</p>
             <p>{number}</p>
             <p>{email}</p>
