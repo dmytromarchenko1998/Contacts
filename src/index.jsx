@@ -5,7 +5,8 @@ import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { withClientState } from 'apollo-link-state';
 import { ApolloLink } from 'apollo-link';
 import gql from 'graphql-tag';
-import App from './App.jsx';
+import App from './components/App.jsx';
+import resolvers from './resolvers.jsx';
 
 
 const cache = new InMemoryCache();
@@ -24,38 +25,7 @@ const defaultState = {
 const stateLink = withClientState({
   cache,
   defaults: defaultState,
-  resolvers: {
-    Mutation: {
-      updateForm:(_, { firstName, middleName, lastName, number, email}, { cache }) => {
-        const query = gql`
-          query GetCurrentForm {
-            currentForm @client {
-              __typename
-              firstName
-              middleName
-              lastName
-              number
-              email
-            }
-          }
-        `
-        const { currentForm } = cache.readQuery({query});
-
-        const data = {
-          currentForm: {
-            __typename: currentForm.__typename,
-            firstName: firstName || currentForm.firstName,
-            middleName: middleName || currentForm.middleName,
-            lastName: lastName || currentForm.lastName,
-            number: number || currentForm.number,
-            email: email || currentForm.email
-          }
-        }
-
-        cache.writeData({ query, data })
-      },
-    }
-  }
+  resolvers: resolvers
 })
 
 const client = new ApolloClient({

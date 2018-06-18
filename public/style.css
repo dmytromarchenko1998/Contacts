@@ -8,7 +8,7 @@ body {
   display: flex;
 }
 
-.contact {
+.contact, .form {
   display: flex;
   flex-flow: column;
   border-color: grey;
