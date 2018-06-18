@@ -13,11 +13,11 @@ const cache = new InMemoryCache();
 const defaultState = {
   currentForm: {
     __typename: 'CurrentForm',
-    firstName: 'Dawg',
-    middleName: 'Dawg',
-    lastName: 'Dawg',
-    number: 'Dawg',
-    email:'Dawg',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    number: '',
+    email:'',
   }
 }
 
@@ -25,8 +25,35 @@ const stateLink = withClientState({
   cache,
   defaults: defaultState,
   resolvers: {
-    updateForm:(_, { firstName, middleName }, { cache }) => {
-      console.log(firstName, middleName);
+    Mutation: {
+      updateForm:(_, { firstName, middleName, lastName, number, email}, { cache }) => {
+        const query = gql`
+          query GetCurrentForm {
+            currentForm @client {
+              __typename
+              firstName
+              middleName
+              lastName
+              number
+              email
+            }
+          }
+        `
+        const { currentForm } = cache.readQuery({query});
+
+        const data = {
+          currentForm: {
+            __typename: currentForm.__typename,
+            firstName: firstName || currentForm.firstName,
+            middleName: middleName || currentForm.middleName,
+            lastName: lastName || currentForm.lastName,
+            number: number || currentForm.number,
+            email: email || currentForm.email
+          }
+        }
+
+        cache.writeData({ query, data })
+      },
     }
   }
 })
@@ -40,41 +67,6 @@ const client = new ApolloClient({
   ]),
   cache
 })
-
-// const stateLink = withClientState({
-//   cache,
-//   resolvers: {
-//     Mutation: {
-//       updateNetworkStatus: (_, { isConnected }, { cache }) => {
-//         const data = {
-//           networkStatus: {
-//             __typename: 'NetworkStatus',
-//             isConnected
-//           },
-//         };
-//         cache.writeData({ data });
-//         return null;
-//       },
-//     },
-//   },
-//   defaults: {
-//     networkStatus: {
-//       __typename: 'NetworkStatus',
-//       isConnected: true,
-//     },
-//   },
-// });
-
-// const client = new ApolloClient({
-//   cache,
-//   link: ApolloLink.from([stateLink, new HttpLink({ uri: 'http://192.168.29.248:8000/graphql'})]),
-// });
-
-// const UPDATE_NETWORK_STATUS = gql`
-//   mutation updateNetworkStatus($isConnected: Boolean) {
-//     updateNetworkStatus(isConnected: $isConnected) @client
-//   }
-// `;
 
 const Root = () => (
   <ApolloProvider client={client}>

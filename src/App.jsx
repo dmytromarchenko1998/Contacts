@@ -30,10 +30,18 @@ const getFormData = gql`
   }
 `;
 
-const updateForm = gql`
-  mutation updateForm($firstName: String!, $middleName: String!) {
-    updateForm(firstName: $firstName, middleName: $middleName) @client{
+const Update_Form = gql`
+  mutation updateForm($firstName: String, $middleName: String, $lastName: String, $number: String, $email: String) {
+    updateForm(firstName: $firstName, middleName: $middleName, lastName: $lastName, number: $number, email: $email) @client{
       firstName
+    }
+  }
+`
+
+const Submit_Form = gql`
+  mutation newContact($firstName: String!, $middleName: String, $lastName: String!, $number: String!, $email: String!) {
+    newContact(firstName: $firstName, middleName: $middleName, lastName: $lastName, number: $number, email: $email) {
+      id
     }
   }
 `
@@ -64,41 +72,62 @@ const Contacts = () => (
   </Query>
 );
 
-// const Form = () => (
-//   <Mutation mutation={updateForm}>
-//     {({ updateForm }, { data }) => (
-//     <div>
-//       <input onChange={({ target }) => {
-//         console.log(target.value);
-//         console.log(updateForm);
-//         updateForm({variables:{firstName:target.value, middleName: target.value}})}}
-//       />
-//     </div>
-//     )}
-//   </Mutation>
-// );
+const Form = () => {
+  const inputs = {
+    firstName: 'First Name',
+    middleName: 'Middle Name',
+    lastName: 'Last Name',
+    number: 'PhoneNumber',
+    email: 'Email'
+  }
+  return (
+    <Mutation mutation={Update_Form}>
+      {(updateForm, { data }) => {
+        return Object.keys(inputs).map((key, index) => (
+          <div className="input">
+            <p>{inputs[key]} :</p>
+            <input onChange={({ target }) => {
+              updateForm({variables:{[key]:target.value}})}}
+            />
+          </div>
+        ))
+      }}
+    </Mutation>
+  )
+};
 
-// const FormDraft = () => (
-//   <Query query={getFormData}>
-//     {({ data, error, loading}) => {
-//       if (error) return '💩 Oops!';
-//       if (loading) return 'loading';
-//       console.log(data);
-//       return (
-//         <div>test</div>
-//       )
-//     }}
-//   </Query>
-// )
+const FormDraft = () => (
+  <Query query={getFormData}>
+    {({ data, error, loading}) => {
+      if (error) return '💩 Oops!';
+      if (loading) return 'loading';
+      const currentForm = data.currentForm;
+      return (
+        <div>
+          <p>{`Full Name: ${currentForm.firstName} ${currentForm.middleName} ${currentForm.lastName}`}</p>
+          <p>{`Phone Number: ${currentForm.number}`}</p>
+          <p>{`Email: ${currentForm.email}`}</p>
+          <SubmitForm data={currentForm}/>
+        </div>
+      )
+    }}
+  </Query>
+)
 
-// const Form = () => {
-//   return (
-//     <div>
-//       <form>
-//         <input onChange={({ target }) => {console.log(target.value)}}/>
-//       </form>
-//     </div>
-//   )
-// }
+const SubmitForm = (props) => {
+  return (
+    <Mutation mutation={Submit_Form}>
+      {(submitForm, { data }) => {
+        return (
+          <div>
+            <button onClick={() => {
+              submitForm({variables:props.data})
+            }}>Submit</button>
+          </div>
+        )
+      }}
+    </Mutation>
+  )  
+}
 
 export default App;
