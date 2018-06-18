@@ -5,10 +5,12 @@ import Form from './Form.jsx';
 import FormDraft from './FormDraft.jsx';
 
 const App = () => (
-  <div className="App">
+  <div className="app">
     <Contacts />
     <form className="form">
-      <Form />
+      <div className="inputsContainer">
+        <Form />
+      </div>
       <FormDraft />
     </form>
   </div>

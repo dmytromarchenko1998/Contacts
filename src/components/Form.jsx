@@ -14,9 +14,8 @@ const Form = () => {
     <Mutation mutation={Update_Form}>
       {(updateForm, { data }) => {
         return Object.keys(inputs).map((key, index) => (
-          <div className="input">
-            <p>{inputs[key]} :</p>
-            <input onChange={({ target }) => {
+          <div className="inputs">
+            <input className="input" placeholder={inputs[key]} onChange={({ target }) => {
               let value = target.value;
               if (value === '') {
                 value = ' ';

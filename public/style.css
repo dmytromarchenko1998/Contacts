@@ -2,10 +2,36 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.app {
+  width: 50vw;
+  min-width: 400px;
+  display: flex;
+  flex-flow: column;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.inputs, .input {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }
 
 .input {
-  display: flex;
+  width: 50%;
+}
+
+.inputs {
+  width: 100%;
 }
 
 .contact, .form {
