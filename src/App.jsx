@@ -49,8 +49,10 @@ const Submit_Form = gql`
 const App = () => (
   <div className="App">
     <Contacts />
-    <Form />
-    <FormDraft />
+    <form>
+      <Form />
+      <FormDraft />
+    </form>
   </div>
 )
 
@@ -61,7 +63,7 @@ const Contacts = () => (
       if (loading) return 'loading';
       return (
         data.contacts.map(({ firstName, middleName,lastName, number, email, id}) => (
-          <div id={id}>
+          <div className="contact" id={id}>
             <p>{`${firstName} ${middleName || ''} ${lastName}`}</p>
             <p>{number}</p>
             <p>{email}</p>
@@ -87,7 +89,11 @@ const Form = () => {
           <div className="input">
             <p>{inputs[key]} :</p>
             <input onChange={({ target }) => {
-              updateForm({variables:{[key]:target.value}})}}
+              let value = target.value;
+              if (value === '') {
+                value = ' ';
+              }
+              updateForm({variables:{[key]:value}})}}
             />
           </div>
         ))
@@ -104,9 +110,11 @@ const FormDraft = () => (
       const currentForm = data.currentForm;
       return (
         <div>
-          <p>{`Full Name: ${currentForm.firstName} ${currentForm.middleName} ${currentForm.lastName}`}</p>
-          <p>{`Phone Number: ${currentForm.number}`}</p>
-          <p>{`Email: ${currentForm.email}`}</p>
+          <div className="contact">
+            <p>{`Full Name: ${currentForm.firstName} ${currentForm.middleName} ${currentForm.lastName}`}</p>
+            <p>{`Phone Number: ${currentForm.number}`}</p>
+            <p>{`Email: ${currentForm.email}`}</p>
+          </div>
           <SubmitForm data={currentForm}/>
         </div>
       )
@@ -120,9 +128,11 @@ const SubmitForm = (props) => {
       {(submitForm, { data }) => {
         return (
           <div>
-            <button onClick={() => {
+            <button 
+            onClick={() => {
               submitForm({variables:props.data})
-            }}>Submit</button>
+            }}
+            >Add Contact</button>
           </div>
         )
       }}

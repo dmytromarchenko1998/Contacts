@@ -7,3 +7,12 @@ body {
 .input {
   display: flex;
 }
+
+.contact {
+  display: flex;
+  flex-flow: column;
+  border-color: grey;
+  border-style: solid;
+  border-radius: 3px;
+  margin: 5px;
+}
